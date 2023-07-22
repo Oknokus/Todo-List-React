@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "email": "oknokus@gmail.com",
+      "password": "$2a$10$eg5wu9ga9/WbLp.bg1az/OGqMsrQ7MWMMv6D9nx/bEu3Pni1P2L6G",
+      "login": "Oknokus",
+      "id": 1
+    },
+    {
+      "email": "oknoku1s@gmail.com",
+      "password": "$2a$10$.3C1EkNyAenKfogJ0cw7xOqvPOYs2KOfmjLbsm2NUUKAIykjRdLpO",
+      "login": "Oknokus1",
+      "id": 2
+    }
+  ]
+}

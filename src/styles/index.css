@@ -1,0 +1,32 @@
+:root{
+        /* Color */
+        --bg-color1: #fff;
+        --bg-color2: #886d6d;
+        --bg-color3: rgb(112, 112, 112);
+        --bg-color4: #495353; 
+        --bg-color5: rgb(240, 11, 11);
+        --bg-color6: rgb(155, 18, 18);      
+      
+
+        /* Size */
+        --size-verySmall: 5px;
+        --size-small: 15px;
+        --size-small-medium: 25px;
+        --size-medium: 40px;
+        --size-large: 50px;
+
+        /* Width */
+        --width-small : 200px;  
+        --width-medium : 250px;  
+        --width-large: 450px;  
+        
+        /* Box-shadow */
+        --box-shadow1: 2px 3px 4px black;
+}
+*{     
+    margin: 0;  
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style-type: none;
+} 
+
