@@ -1,0 +1,47 @@
+.containerCreate_editor{
+    position: absolute;
+    top: 100px;
+    width: var(--width-medium);
+    background: var(--bg-color4);
+    padding: var(--size-small);
+    box-shadow: var(--box-shadow);
+    border-radius: 10px;
+
+}
+.containerCreate_editorClose{
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+.containerCreate_editorInput{
+    width: 100%;
+    border-radius: 10px;
+    height: var(--size-medium);
+    padding: 0 var(--size-small); 
+}
+.containerCreate_editorColors{
+    display: flex;
+    justify-content: center;
+    column-gap: var(--size-verySmall); 
+    padding: var(--size-small);
+    z-index: 10;
+}
+.containerCreate_editorColorsActive{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+.containerCreate_editorBtn{
+    padding: var(--size-small) var(--size-small);
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: var(--bg-color3);
+    color: var(--bg-color1);
+    width: 100%;
+    border: none;
+    margin-top: var(--size-medium);
+    transition: 0.3s;
+}
+.containerCreate_editorBtn:hover{
+    background-color: var(--bg-color2);
+}

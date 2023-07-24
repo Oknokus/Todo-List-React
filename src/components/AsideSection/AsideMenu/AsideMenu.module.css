@@ -1,0 +1,25 @@
+.aside_container{
+    padding: var(--size-small);
+    margin-bottom: var(--size-medium);
+    border-radius: var(--size-verySmall);
+    cursor: pointer;
+}
+.aside_container:hover{   
+    background: var(--bg-color-white);
+}
+.container_menu{
+    display: flex;
+    flex-direction: column;
+}
+.container_menuLi{
+    display: flex;
+    padding: var(--size-small);
+    margin-bottom: var(--size-verySmall);
+    border-radius: var(--size-verySmall);
+    align-items: center;
+    position: relative;            
+    cursor: pointer; 
+}
+
+
+
