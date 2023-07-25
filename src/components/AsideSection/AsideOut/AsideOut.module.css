@@ -1,0 +1,17 @@
+.aside_containerOut{
+    position: absolute;
+    padding: var(--size-small) var(--size-small);
+    cursor: pointer;
+    border-radius: var(--size-small);
+    background-color: var(--bg-color4);
+    color: var(--bg-color1);
+    width: 10%;   
+    right: 30px;
+    top: 10px;
+    border: none;  
+    transition: 0.3s;
+}
+.aside_containerOut:hover{
+    background-color: var(--bg-color6);
+}
+        

@@ -17,11 +17,16 @@
     padding: var(--size-small);
     box-shadow: var(--box-shadow);
     border-radius: 10px;
+    opacity: 0.7;
+    box-shadow: var(--box-shadow1);
 }
 .containerCreate_editorClose{
     position: absolute;
     top: -5px;
     right: -5px;
+}
+.containerCreate_tasksAll{
+    padding-top: 20px;
 }
 .containerCreate_editorInput{
     width: 100%;
@@ -55,6 +60,10 @@
 .containerCreate_editorBtn:hover{
     background-color: var(--bg-color2);
 }
+.containerCreate_taskClose{
+    position: absolute;
+    right: 15px;
+}
 .containerCreate_tasks{
     margin-top: 20px;
     margin-left: -40px;
@@ -65,15 +74,26 @@
 }
 .containerCreate_taskTitle{
     display: flex;
-    font-size: 30px;
-    color: var(--bg-color1);
-    align-items: center;
+    font-size: 20px;
+    background-color: var(--bg-color4);
+    color: var(--bg-color2);
+    align-items: center;    
+    margin-bottom: var(--size-small);
+    height: var(--size-medium);
+    padding: 0 var(--size-small);
+    border-radius: var(--size-small);
+    cursor: pointer;
+    box-shadow: var(--box-shadow1);       
 }
+.containerCreate_taskTitle:active{
+    background-color: var(--bg-color7);
+}
+
 .containerCreate_taskColor{
     border-radius: 100%;
-    width: 20px;
-    height: 20px;
-    margin-left: 20px;
+    width: 10px;
+    height: 10px;
+    margin: 0 10px;
 }
 .containerCreate_editorTitle{
     position: absolute;
@@ -83,6 +103,5 @@
     background: var(--bg-color4);
     padding: var(--size-small);
     box-shadow: var(--box-shadow);
-    border-radius: 10px;
-
+    border-radius: 10px;    
 }

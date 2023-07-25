@@ -3,20 +3,21 @@ import {useContext, useState} from 'react';
 import { CustumContext } from '../../Config/Contex';
 import {v4 as uuidv4} from 'uuid';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
-
 
 // import AsideMenu from "./AsideMenu";
 import AsideCreateCategory from "./AsideCreateCategory";
 import UserTasks from './UserTasks/UserTasks';
+import AsideOut from './AsideOut/AsideOut';
 
 
 import styles from "./AsideSection.module.css";
 
 
-const AsideSection = () => {   
-        
+const AsideSection = () => { 
+    const navigate = useNavigate();
     const {
         user,
         setUser,        
@@ -74,8 +75,7 @@ const AsideSection = () => {
                     } else {
                         return elem
                     }
-                });    
-                
+                });                    
             axios.patch(`http://localhost:8080/users/${user.id}`, {            
                     categories: [                                      
                        ...task,                             
@@ -91,12 +91,46 @@ const AsideSection = () => {
                     toast("Задача добавлена!!!")
                 }).catch(err => toast(`Задача не добавлена!!!, ${err.message}`))              
             };
-                       
 
+            const delTask = (id) => { 
+                let newCategory = user.categories.map((elem) => {
+                    if(elem.categoryName === favoritesCategory.categoryName) {                
+                        return ({...elem, tasks: elem.tasks.filter(el => el.id !== id)})
+                    } else {
+                        return elem
+                    }
+                });             
+                              
+                axios.patch(`http://localhost:8080/users/${user.id}`, {
+                    categories: [
+                        ...newCategory
+                    ]                 
+                })
+                    .then(({data}) => {                                      
+                            setUser({
+                                ...data
+                            });            
+                            localStorage.setItem("user", JSON.stringify({
+                                ...data,
+                                tasks: [
+                                    newCategory
+                                ]                
+                            }))                         
+                        toast("Задача удалена!!!")
+                    })
+                    .catch(err => toast(`Задача не удалена!!!, ${err.message}`))
+            };
+
+            const logOutUser = () => {
+                localStorage.removeItem("user");
+                setUser([]);
+                navigate("/login")
+            };
+                
      return (
         <div className={styles.asideSection_container}>
             <AsideCreateCategory subMit={subMit} addCategory={addCategory} setActive={setActive} active={active}/>
-            <UserTasks addTasks={addTasks} user={user}/>
+            <UserTasks addTasks={addTasks} delTask={delTask} user={user} logOutUser={logOutUser}/>            
         </div>        
     )
 };

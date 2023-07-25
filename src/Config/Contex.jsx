@@ -38,7 +38,8 @@ export const Context = (props) => {
                 token: res.data.accessToken,
                 ...res.data.user
             })) 
-            navigate("/");                       
+            navigate("/");
+            setFavoritesCategory("")                       
         })
         .catch(err => console.log(err))                           
     };
@@ -57,6 +58,7 @@ export const Context = (props) => {
                     ...res.data.user
                 }))
                 navigate("/");
+                setFavoritesCategory("")
             })
             .catch(err => console.log(err))
     };
@@ -86,7 +88,7 @@ export const Context = (props) => {
     //         }                              
               
 
-    const delTask = (id) => {          
+    const delCategory = (id) => {          
             let newUserCategories = user.categories.filter((elem) => 
             elem.id !== id);   
             
@@ -100,6 +102,8 @@ export const Context = (props) => {
                         ...data,
                         token: useState.token
                     }))  
+                    setFavoritesCategory("")
+                    setContainerTasks("")
                     toast("Категория удалена!!!")
                 })
                 .catch(err => toast(`Категория не удалена!!!, ${err.message}`))
@@ -127,7 +131,7 @@ export const Context = (props) => {
         containerTasks, 
         setContainerTasks,
         onSubmit, 
-        delTask     
+        delCategory     
         // editCategoryName
     }       
 

@@ -3,13 +3,14 @@ import { useContext, useState } from 'react';
 
 import { CustumContext } from '../../../Config/Contex';
 
+import AsideOut from '../AsideOut/AsideOut';
+
 
 import styles from './UserTasks.module.css';
 
 
-const UserTasks = ({addTasks, user}) => {  
-    const {        
-        setFavoritesCategory, 
+const UserTasks = ({addTasks, user, delTask, logOutUser}) => {  
+    const {              
         favoritesCategory,
         activeTaskMenu, 
         setActiveTaskMenu,
@@ -18,37 +19,50 @@ const UserTasks = ({addTasks, user}) => {
         containerTasks, 
         setContainerTasks       
     } = useContext(CustumContext);
-    
-   if(favoritesCategory) {
-    let task = user.categories.filter((elem) => {
+          
+    const task = user.categories.find((elem) => {
         if(elem.categoryName === favoritesCategory.categoryName) {  
             setContainerTasks(elem)
-    }})
-    } 
-       
+    }   else return 
+    });
+   
     return ( 
             <div className={styles.usertasks_container}>  
             <h1 key={favoritesCategory.id}>Выбрана категория: {favoritesCategory.categoryName}</h1>             
+                           
+            {
+                favoritesCategory ?
+                <> 
                 <span 
                     className={activeTaskMenu ? styles.container_tasksAll : styles.container_tasksAll}
                     onClick={() => setActiveTaskMenu(true)}>
                         ➕Добавить задачу
-                </span>
-                <ul className={styles.container_content}>
-                    <h2 className={styles.container_taskTitle}>Задачи</h2>   
+                </span> 
+
+                <h2 className={styles.container_taskTitle}>Задачи</h2>
+                </>
+             : "" 
+
+            }
+                <ul className={styles.container_content}>                                        
                     {
-                        containerTasks && containerTasks.tasks.map(elem => 
+                        containerTasks.tasks?.map(elem => 
                             <li 
                                 className={styles.container_taskItem}
                                 key={elem.id}>
-                                <h2>-{elem.taskName}</h2>
-                                <input type="checkbox" 
-                                value={elem.isComplete}/>
+                                <div className={styles.container_taskItemTitle}>
+                                    <h2>-{elem.taskName}</h2>
+                                    <input type="checkbox" 
+                                    value={elem.isComplete}/>
+                                    <span
+                                        onClick={() => delTask(elem.id)}>
+                                        ✖️
+                                    </span>                                    
+                                </div>                                
                             </li>
                         ) 
-                    }                                
-                </ul>
-                               
+                    }                                 
+                </ul>                               
                
                     <div style={{display: activeTaskMenu ? "block" : "none"}}  className={styles.container_editor}>
                             <label>                             
@@ -68,7 +82,8 @@ const UserTasks = ({addTasks, user}) => {
                                 onClick={() => addTasks() & setActiveTaskMenu(false)}>
                                 Добавить задачу
                             </button>
-                    </div>
+                    </div>                   
+                    <AsideOut logOutUser={logOutUser}/>
             </div>
     )
 }

@@ -13,9 +13,10 @@
     left: 350px;
     width: var(--width-medium);
     background: var(--bg-color4);
-    padding: var(--size-small);
-    box-shadow: var(--box-shadow);
+    padding: var(--size-small);   
     border-radius: 10px;
+    opacity: 0.7;
+    box-shadow: var(--box-shadow1);   
 }
 .container_editorClose{
     position: absolute;
@@ -47,9 +48,12 @@
     margin: 20px 0px;    
 }
 .container_taskItem{
-    display: flex;   
-}
-.container_content{
     display: flex;
-    justify-content: center;
+    justify-content: center;   
 }
+.container_taskItemTitle{
+    display: flex;
+    align-items: center;
+    margin: 10px 20px;
+}
+

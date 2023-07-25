@@ -2,59 +2,24 @@
   "users": [
     {
       "email": "oknokus@gmail.com",
-      "password": "$2a$10$rjhR4R7OhtcLhGled/u65..ztPBItkZDfaXmRjq5xQAEzikhiiaX2",
+      "password": "$2a$10$arjFfqQA1p7XfAiLoZmu4u.VQN7ej5Dc56zV0MFWHc6TbJD26vZaK",
       "login": "Oknokus",
-      "categories": [
-        {
-          "categoryName": "1234",
-          "id": "b67cc731-7098-42a2-ac93-ad7ee5ee2f61",
-          "color": "yellow",
-          "tasks": [
-            {
-              "taskName": "1234",
-              "id": "2e50e539-df7e-4e1d-96de-880a1a82b122",
-              "isComplete": true
-            }
-          ]
-        },
-        {
-          "categoryName": "12345",
-          "id": "8a0d23e9-fb64-4742-8965-a89178d824fe",
-          "color": "black",
-          "tasks": [
-            {
-              "taskName": "123124",
-              "id": "959001f8-280b-4b57-9b05-1f6a56e0355c",
-              "isComplete": false
-            },
-            {
-              "taskName": "sdsdfsdf",
-              "id": "d091b0ca-2188-4ecb-9196-e1ce95d887fb",
-              "isComplete": false
-            },
-            {
-              "taskName": "123123123",
-              "id": "c1ba2085-d4fc-40cf-aebf-3eff08b95a36",
-              "isComplete": false
-            }
-          ]
-        }
-      ],
+      "categories": [],
       "id": 1
     },
     {
-      "email": "oknokus2@gmail.com",
-      "password": "$2a$10$kV0F29RhFpq4Sbk5457mKOF2uU/Hq5om3N/QrPROUKXXECiGJc4aO",
-      "login": "Oknokus2",
-      "categories": [],
+      "email": "oknokus1@gmail.com",
+      "password": "$2a$10$oTcqQBJqLjKArXXzTrdp..1Ti79sLJ4C1TtqE4Rth8BBFciiLuNwq",
+      "login": "Наташа",
+      "categories": [
+        {
+          "categoryName": "asdasd",
+          "id": "2403219a-eb90-4c35-a41c-41fe95bbfe2d",
+          "color": "blue",
+          "tasks": []
+        }
+      ],
       "id": 2
-    },
-    {
-      "email": "oknokus5@gmail.com",
-      "password": "$2a$10$YIVl0axPK.r/U/bXdGpojuVF/Rpy/8hRTJEgbk0ypLHzkEuCGLZXq",
-      "login": "Oknokus5",
-      "categories": [],
-      "id": 3
     }
   ]
 }

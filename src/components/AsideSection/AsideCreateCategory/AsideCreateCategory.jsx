@@ -8,14 +8,13 @@ import styles from './AsideCreateCategory.module.css';
 
 
 const AsideCreateCategory = ({subMit, addCategory}) => {
-    const [activeTask, setActiveTask]  = useState(false)
-
+    const [activeTask, setActiveTask]  = useState(false);
     const {        
         categoryName,
         setColor,
         color,        
         editCategoryName,
-        delTask,
+        delCategory,
         active,
         setActive,
         newCategeryName, 
@@ -24,15 +23,17 @@ const AsideCreateCategory = ({subMit, addCategory}) => {
         setUser,
         setFavoritesCategory,
         favoritesCategory
-    } = useContext(CustumContext);           
+    } = useContext(CustumContext);        
+    
     return (
         <div className={styles.aside_containerCreate}>  
-            <h1>Привет {user.login}</h1>             
-                <span 
+            <h1 key={user.id}>Привет {user.login}</h1> 
+           
+                <div 
                     className={styles.containerCreate_tasksAll}  
                     onClick={() => setActive(true)}>➕ Добавить категорию
-                </span>                
-               
+                </div> 
+                             
                     <div style={{display: active ? "block" : "none"}}  className={styles.containerCreate_editor}>
                             <label>                             
                                 <input 
@@ -47,11 +48,11 @@ const AsideCreateCategory = ({subMit, addCategory}) => {
 
                             <div className={styles.containerCreate_editorColors}>
                                 {dataColors.map(elem => 
-                                    <span 
+                                    <div 
                                         className={styles.containerCreate_editorColorsActive} 
                                         onClick={() => setColor(elem)}                                     
                                         key={elem} style={{background: elem, border: color === elem ? "4px solid black" : "none"}}>
-                                    </span>)}
+                                    </div>)}
                             </div>
 
                             <button 
@@ -62,23 +63,24 @@ const AsideCreateCategory = ({subMit, addCategory}) => {
                     </div>
                     
                     <div className={styles.containerCreate_tasks}>
-                        <ul>                                    
+                        <ul style={{marginTop: "50px"}}>                                    
                             {
                                 user.categories.map(el => 
                                     <>    
                                         <li 
-                                            className={styles.containerCreate_taskTitle}                                           
+                                            className={styles.containerCreate_taskTitle} 
+                                            onClick={() => setFavoritesCategory(el)}                                          
                                             key={el.id}>
 
                                             <div onClick={() => setActiveTask(true)}>📝</div>                                                
                                             <div className={styles.containerCreate_taskColor} style={{backgroundColor: el.color}}></div>
                                             
-                                            <h5 onClick={() => setFavoritesCategory(el)}>{el.categoryName}</h5>                                            
+                                            <h5>{el.categoryName}</h5>                                            
                                             
-                                            <div 
-                                                className={styles.containerCreate_taskTitle}
-                                                onClick={() => delTask(el.id)}>🗑️
-                                            </div>
+                                            <span 
+                                                className={styles.containerCreate_taskClose}
+                                                onClick={() => delCategory(el.id)}>✖️
+                                            </span>
                                         </li>  
                                       
                                         {
