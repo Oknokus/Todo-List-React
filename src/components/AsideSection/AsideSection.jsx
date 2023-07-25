@@ -15,7 +15,8 @@ import UserTasks from './UserTasks/UserTasks';
 import styles from "./AsideSection.module.css";
 
 
-const AsideSection = () => {          
+const AsideSection = () => {   
+        
     const {
         user,
         setUser,        
@@ -23,9 +24,11 @@ const AsideSection = () => {
         categoryName,       
         color,
         active,
-        setActive           
+        setActive,
+        taskName, 
+        setTaskName,
+        favoritesCategory                  
         } = useContext(CustumContext);
-
      
         const addCategory = () => {         
             let newCategory = {
@@ -58,12 +61,42 @@ const AsideSection = () => {
             const subMit = (e) => {                
                 setCategoryName(e.target.value);
             };
+
+            const addTasks = () => {
+                let newTask = { 
+                taskName: taskName,     
+                id: uuidv4(),
+                isComplete: false
+            };       
+                let task = user.categories.map((elem) => {
+                    if(elem.categoryName === favoritesCategory.categoryName) {                
+                        return ({...elem, tasks: [...elem.tasks, newTask]})
+                    } else {
+                        return elem
+                    }
+                });    
+                
+            axios.patch(`http://localhost:8080/users/${user.id}`, {            
+                    categories: [                                      
+                       ...task,                             
+                    ]})  
+                .then(({data}) => {                      
+                    setUser({
+                        ...data                                     
+                    });
+                    localStorage.setItem("user", JSON.stringify({
+                        ...data                           
+                    }))
+                    setTaskName("");
+                    toast("Задача добавлена!!!")
+                }).catch(err => toast(`Задача не добавлена!!!, ${err.message}`))              
+            };
                        
 
      return (
         <div className={styles.asideSection_container}>
             <AsideCreateCategory subMit={subMit} addCategory={addCategory} setActive={setActive} active={active}/>
-            <UserTasks/>
+            <UserTasks addTasks={addTasks} user={user}/>
         </div>        
     )
 };

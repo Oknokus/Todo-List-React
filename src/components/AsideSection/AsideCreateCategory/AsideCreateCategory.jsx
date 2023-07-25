@@ -21,14 +21,16 @@ const AsideCreateCategory = ({subMit, addCategory}) => {
         newCategeryName, 
         setnewCategeryName,
         user, 
-        setUser
+        setUser,
+        setFavoritesCategory,
+        favoritesCategory
     } = useContext(CustumContext);           
     return (
         <div className={styles.aside_containerCreate}>  
             <h1>Привет {user.login}</h1>             
                 <span 
-                    className={active ? styles.containerCreate_tasksAll : styles.containerCreate_tasksAll}  
-                    onClick={() => setActive(true)}>➕Добавить категорию
+                    className={styles.containerCreate_tasksAll}  
+                    onClick={() => setActive(true)}>➕ Добавить категорию
                 </span>                
                
                     <div style={{display: active ? "block" : "none"}}  className={styles.containerCreate_editor}>
@@ -54,7 +56,7 @@ const AsideCreateCategory = ({subMit, addCategory}) => {
 
                             <button 
                                 className={styles.containerCreate_editorBtn}
-                                onClick={() => addCategory()} >
+                                onClick={() => addCategory() && setActive(false)} >
                                 Добавить
                             </button>
                     </div>
@@ -65,13 +67,13 @@ const AsideCreateCategory = ({subMit, addCategory}) => {
                                 user.categories.map(el => 
                                     <>    
                                         <li 
-                                            className={styles.containerCreate_taskTitle}
+                                            className={styles.containerCreate_taskTitle}                                           
                                             key={el.id}>
 
                                             <div onClick={() => setActiveTask(true)}>📝</div>                                                
                                             <div className={styles.containerCreate_taskColor} style={{backgroundColor: el.color}}></div>
                                             
-                                            {el.categoryName}                                            
+                                            <h5 onClick={() => setFavoritesCategory(el)}>{el.categoryName}</h5>                                            
                                             
                                             <div 
                                                 className={styles.containerCreate_taskTitle}
@@ -82,7 +84,7 @@ const AsideCreateCategory = ({subMit, addCategory}) => {
                                         {
                                             activeTask ? 
                                             <>
-                                                <div style={{display: activeTask ? "block" : "none"}}  className={styles.containerCreate_editor}>
+                                                <div style={{display: activeTask ? "block" : "none"}}  className={styles.containerCreate_editorTitle}>
                                                     <label>                             
                                                         <input                                    
                                                             className={styles.containerCreate_editorInput} type="text" placeholder='Название категории'                                                            
@@ -95,7 +97,9 @@ const AsideCreateCategory = ({subMit, addCategory}) => {
                                                             ✖️
                                                     </span>                           
 
-                                                    <button onClick={() => setActiveTask(false)}>
+                                                    <button 
+                                                        className={styles.containerCreate_editorBtn}
+                                                        onClick={() => setActiveTask(false)}>
                                                         Применить
                                                     </button>
                                                 </div>

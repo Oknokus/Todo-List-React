@@ -2,36 +2,59 @@
   "users": [
     {
       "email": "oknokus@gmail.com",
-      "password": "$2a$10$jOjb502c8qqXEk7dC/JjmOLsV9pHkHK.hMVfkIqjgN.dl2Kbdc2Ve",
+      "password": "$2a$10$rjhR4R7OhtcLhGled/u65..ztPBItkZDfaXmRjq5xQAEzikhiiaX2",
       "login": "Oknokus",
-      "categories": [],
+      "categories": [
+        {
+          "categoryName": "1234",
+          "id": "b67cc731-7098-42a2-ac93-ad7ee5ee2f61",
+          "color": "yellow",
+          "tasks": [
+            {
+              "taskName": "1234",
+              "id": "2e50e539-df7e-4e1d-96de-880a1a82b122",
+              "isComplete": true
+            }
+          ]
+        },
+        {
+          "categoryName": "12345",
+          "id": "8a0d23e9-fb64-4742-8965-a89178d824fe",
+          "color": "black",
+          "tasks": [
+            {
+              "taskName": "123124",
+              "id": "959001f8-280b-4b57-9b05-1f6a56e0355c",
+              "isComplete": false
+            },
+            {
+              "taskName": "sdsdfsdf",
+              "id": "d091b0ca-2188-4ecb-9196-e1ce95d887fb",
+              "isComplete": false
+            },
+            {
+              "taskName": "123123123",
+              "id": "c1ba2085-d4fc-40cf-aebf-3eff08b95a36",
+              "isComplete": false
+            }
+          ]
+        }
+      ],
       "id": 1
     },
     {
-      "email": "oknokus1@gmail.com",
-      "password": "$2a$10$KSBsClFKGF6AXqFw8UerTuzh6H8/wrTkPTd1zt0nNZY8uLb2mUude",
-      "login": "Oknokus1",
-      "categories": [
-        {
-          "categoryName": "1",
-          "id": "19909ecb-2846-4e0f-88c0-d5da3c9ea5d7",
-          "color": "yellow",
-          "tasks": []
-        },
-        {
-          "categoryName": "2",
-          "id": "b1955f92-c4ad-40b3-a7ab-acc45e1cc3df",
-          "color": "yellow",
-          "tasks": []
-        },
-        {
-          "categoryName": "3",
-          "id": "b46ebdcf-7bba-4f66-943e-89f94d92386e",
-          "color": "yellow",
-          "tasks": []
-        }
-      ],
+      "email": "oknokus2@gmail.com",
+      "password": "$2a$10$kV0F29RhFpq4Sbk5457mKOF2uU/Hq5om3N/QrPROUKXXECiGJc4aO",
+      "login": "Oknokus2",
+      "categories": [],
       "id": 2
+    },
+    {
+      "email": "oknokus5@gmail.com",
+      "password": "$2a$10$YIVl0axPK.r/U/bXdGpojuVF/Rpy/8hRTJEgbk0ypLHzkEuCGLZXq",
+      "login": "Oknokus5",
+      "categories": [],
+      "id": 3
     }
   ]
 }

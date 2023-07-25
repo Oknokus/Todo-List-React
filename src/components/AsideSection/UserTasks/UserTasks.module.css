@@ -1,0 +1,55 @@
+.usertasks_container{
+    padding: var(--size-small);   
+    border-radius: 10px;
+    cursor: pointer;   
+    background-color: var(--bg-color1);
+    height: 100vh;
+    width: 100%;
+    text-align: center;   
+} 
+.container_editor{
+    position: absolute;
+    top: 470px;
+    left: 350px;
+    width: var(--width-medium);
+    background: var(--bg-color4);
+    padding: var(--size-small);
+    box-shadow: var(--box-shadow);
+    border-radius: 10px;
+}
+.container_editorClose{
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+.container_editorInput{
+    width: 100%;
+    border-radius: 10px;
+    height: var(--size-medium);
+    padding: 0 var(--size-small); 
+}
+.container_editorBtn{
+    padding: var(--size-small) var(--size-small);
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: var(--bg-color3);
+    color: var(--bg-color1);
+    width: 100%;
+    border: none;
+    margin-top: var(--size-medium);
+    transition: 0.3s;
+}
+.container_editorBtn:hover{
+    background-color: var(--bg-color2);
+} 
+.container_taskTitle{
+    color: var(--bg-color5);
+    margin: 20px 0px;    
+}
+.container_taskItem{
+    display: flex;   
+}
+.container_content{
+    display: flex;
+    justify-content: center;
+}

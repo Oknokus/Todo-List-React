@@ -13,9 +13,14 @@ export const Context = (props) => {
     const [user, setUser] = useState([]);    
     const [categoryState, setCategoryState] = useState("");
     const [categoryName, setCategoryName] = useState(); 
+    const [taskName, setTaskName] = useState(""); 
     const [color, setColor] = useState(dataColors[0]); 
     const [active, setActive] = useState(false);   
-    const [newCategeryName, setnewCategeryName] = useState("");  
+    const [activeTaskMenu, setActiveTaskMenu] = useState(false); 
+    const [newCategeryName, setnewCategeryName] = useState(""); 
+    const [favoritesCategory, setFavoritesCategory] = useState({}); 
+    const [containerTasks, setContainerTasks] = useState({});  
+    
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -113,6 +118,14 @@ export const Context = (props) => {
         setColor,
         active, 
         setActive,
+        activeTaskMenu, 
+        setActiveTaskMenu,
+        setFavoritesCategory, 
+        taskName, 
+        setTaskName,
+        favoritesCategory,
+        containerTasks, 
+        setContainerTasks,
         onSubmit, 
         delTask     
         // editCategoryName
