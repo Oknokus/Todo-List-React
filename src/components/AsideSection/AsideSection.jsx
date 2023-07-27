@@ -11,12 +11,13 @@ import axios from 'axios';
 import AsideCreateCategory from "./AsideCreateCategory";
 import UserTasks from './UserTasks/UserTasks';
 import AsideOut from './AsideOut/AsideOut';
+import UserTasksAll from './UserTasksAll/UserTasksAll';
 
 
 import styles from "./AsideSection.module.css";
 
 
-const AsideSection = () => { 
+const AsideSection = () => {     
     const navigate = useNavigate();
     const {
         user,
@@ -28,7 +29,9 @@ const AsideSection = () => {
         setActive,
         taskName, 
         setTaskName,
-        favoritesCategory                  
+        favoritesCategory,
+        tasksAll, 
+        setTasksAll               
         } = useContext(CustumContext);
      
         const addCategory = () => {         
@@ -126,11 +129,20 @@ const AsideSection = () => {
                 setUser([]);
                 navigate("/login")
             };
-                
+
+            const allTasks = (id) => { 
+                let res = user.categories.filter(el => el.categoryName).map(el => el.tasks).map(ele => ele).map(item => item.map(elem => elem.taskName));                
+                    setTasksAll([...res]);
+                    localStorage.setItem("userTasksAll", JSON.stringify({...res}));  
+            } 
+            console.log(tasksAll)
+            
+           
      return (
         <div className={styles.asideSection_container}>
-            <AsideCreateCategory subMit={subMit} addCategory={addCategory} setActive={setActive} active={active}/>
-            <UserTasks addTasks={addTasks} delTask={delTask} user={user} logOutUser={logOutUser}/>            
+            <AsideCreateCategory subMit={subMit} addCategory={addCategory} setActive={setActive} active={active} allTasks={allTasks}/>
+            <UserTasks addTasks={addTasks} delTask={delTask} user={user} logOutUser={logOutUser} />  
+            <UserTasksAll delTask={delTask} tasksAll={tasksAll} setTasksAll={setTasksAll}/>          
         </div>        
     )
 };

@@ -1,0 +1,13 @@
+.container_taskTitle{
+    color: var(--bg-color5);
+    margin: 20px 0px;    
+}
+.container_taskItem{
+    display: flex;
+    justify-content: center;   
+}
+.container_taskItemTitle{
+    display: flex;
+    align-items: center;
+    margin: 10px 20px;
+}

@@ -2,24 +2,45 @@
   "users": [
     {
       "email": "oknokus@gmail.com",
-      "password": "$2a$10$arjFfqQA1p7XfAiLoZmu4u.VQN7ej5Dc56zV0MFWHc6TbJD26vZaK",
+      "password": "$2a$10$AGE2IlLqCjjPfwrdIw5J9eYLkI43sKtQR/NBke5kzwKFccCqJS7s6",
       "login": "Oknokus",
-      "categories": [],
-      "id": 1
-    },
-    {
-      "email": "oknokus1@gmail.com",
-      "password": "$2a$10$oTcqQBJqLjKArXXzTrdp..1Ti79sLJ4C1TtqE4Rth8BBFciiLuNwq",
-      "login": "Наташа",
       "categories": [
         {
-          "categoryName": "asdasd",
-          "id": "2403219a-eb90-4c35-a41c-41fe95bbfe2d",
-          "color": "blue",
-          "tasks": []
+          "categoryName": "1",
+          "id": "77c38a13-ee5b-424a-a994-ab3582a71639",
+          "color": "yellow",
+          "tasks": [
+            {
+              "taskName": "11",
+              "id": "efd25193-670e-4497-81a8-0e870aca8eff",
+              "isComplete": false
+            },
+            {
+              "taskName": "123",
+              "id": "1a258e75-6776-48d9-8770-270828d6b576",
+              "isComplete": false
+            },
+            {
+              "taskName": "1234",
+              "id": "c79ee590-3293-42cc-8be2-7205d2363265",
+              "isComplete": false
+            }
+          ]
+        },
+        {
+          "categoryName": "22",
+          "id": "44b8468f-b829-48d5-b4f2-bca8ab6b9a7b",
+          "color": "yellow",
+          "tasks": [
+            {
+              "taskName": "asdasd",
+              "id": "df3d457b-454a-4480-b6de-0186813e0ea4",
+              "isComplete": false
+            }
+          ]
         }
       ],
-      "id": 2
+      "id": 1
     }
   ]
 }

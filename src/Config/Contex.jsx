@@ -20,6 +20,7 @@ export const Context = (props) => {
     const [newCategeryName, setnewCategeryName] = useState(""); 
     const [favoritesCategory, setFavoritesCategory] = useState({}); 
     const [containerTasks, setContainerTasks] = useState({});  
+    const [tasksAll, setTasksAll] = useState([]);
     
 
     const navigate = useNavigate();
@@ -72,7 +73,7 @@ export const Context = (props) => {
             }           
             location.pathname === "/register" ?  registerUser(dataFetch) : loginUser(data)
         }        
-    };
+    };   
 
     // const editCategoryName = (el) => { 
     //     let newUserCategoryName = user.categories.map((elem) => {                
@@ -128,7 +129,9 @@ export const Context = (props) => {
         taskName, 
         setTaskName,
         favoritesCategory,
-        containerTasks, 
+        containerTasks,
+        tasksAll, 
+        setTasksAll,
         setContainerTasks,
         onSubmit, 
         delCategory     

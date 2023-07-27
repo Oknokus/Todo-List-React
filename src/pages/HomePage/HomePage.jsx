@@ -16,9 +16,9 @@ const HomePage = () => {
         setUser       
         } = useContext(CustumContext);    
 
-    // if(user.length === 0) {
-    //     return <Navigate to="/register"/>
-    // };
+    if(user.length === 0) {
+        return <Navigate to="/register"/>
+    };
     return (
         <>  
             <AsideSection/>

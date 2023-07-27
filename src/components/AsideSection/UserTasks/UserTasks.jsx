@@ -62,8 +62,7 @@ const UserTasks = ({addTasks, user, delTask, logOutUser}) => {
                             </li>
                         ) 
                     }                                 
-                </ul>                               
-               
+                </ul>  
                     <div style={{display: activeTaskMenu ? "block" : "none"}}  className={styles.container_editor}>
                             <label>                             
                                 <input

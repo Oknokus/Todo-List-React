@@ -3,11 +3,13 @@ import { useContext, useState } from 'react';
 import { CustumContext } from '../../../Config/Contex';
 
 import dataColors from "../../../Config/DataColors";
+import Filter from '../../Ui/EditContainer/Filter/Filter';
+import ButtonSizes from '../../Ui/EditContainer/Button/Button';
 
 import styles from './AsideCreateCategory.module.css';
 
 
-const AsideCreateCategory = ({subMit, addCategory}) => {
+const AsideCreateCategory = ({subMit, addCategory, allTasks}) => {
     const [activeTask, setActiveTask]  = useState(false);
     const {        
         categoryName,
@@ -33,7 +35,9 @@ const AsideCreateCategory = ({subMit, addCategory}) => {
                     className={styles.containerCreate_tasksAll}  
                     onClick={() => setActive(true)}>➕ Добавить категорию
                 </div> 
-                             
+                <ButtonSizes allTasks={allTasks} id={user.id}/>
+                <Filter/>   
+                   
                     <div style={{display: active ? "block" : "none"}}  className={styles.containerCreate_editor}>
                             <label>                             
                                 <input 
