@@ -1,4 +1,4 @@
-import {createContext, useState} from "react";
+import {createContext, useEffect, useState} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { toast } from 'react-toastify';
@@ -10,17 +10,18 @@ import axios from "axios";
 export const CustumContext = createContext();
 
 export const Context = (props) => {   
-    const [user, setUser] = useState([]);    
-    const [categoryState, setCategoryState] = useState("");
+    const [newCategeryName, setnewCategeryName] = useState("");  
+    const [user, setUser] = useState([]); 
     const [categoryName, setCategoryName] = useState(); 
     const [taskName, setTaskName] = useState(""); 
     const [color, setColor] = useState(dataColors[0]); 
     const [active, setActive] = useState(false);   
-    const [activeTaskMenu, setActiveTaskMenu] = useState(false); 
-    const [newCategeryName, setnewCategeryName] = useState(""); 
+    const [activeTaskMenu, setActiveTaskMenu] = useState(false);     
     const [favoritesCategory, setFavoritesCategory] = useState({}); 
     const [containerTasks, setContainerTasks] = useState({});  
     const [tasksAll, setTasksAll] = useState([]);
+    const [showAllCategories, setShowAllCategories] = useState(true); 
+    const [showAllTasks, setShowAllTasks] = useState(false); 
     
 
     const navigate = useNavigate();
@@ -73,22 +74,39 @@ export const Context = (props) => {
             }           
             location.pathname === "/register" ?  registerUser(dataFetch) : loginUser(data)
         }        
-    };   
+    }; 
+    
+    
+    const updateCategory = (el) => {
+        let newUserCategories = user.categories.map((elem) => {
+                if (elem.id !== el.id) {
+                    return elem;
+                }
+                return {
+                    ...elem,
+                    categoryName: newCategeryName
+                }
+            }
+        );        
 
-    // const editCategoryName = (el) => { 
-    //     let newUserCategoryName = user.categories.map((elem) => {                
-    //         if(elem.categoryName === el.categoryName) {                
-    //             return ({...elem, categoryName: newCategeryName})
-    //         } else {
-    //             return {...elem,  categoryName: elem.categoryName}
-    //         }})              
-
-    //             localStorage.setItem("user", JSON.stringify({                    
-    //                 newUserCategoryName
-    //             })) 
-    //         }                              
-              
-
+        axios.patch(`http://localhost:8080/users/${user.id}`, {categories: newUserCategories})
+            .then(({data}) => {             
+                setUser({
+                    ...data,
+                    token: useState.token
+                })
+                localStorage.setItem("user", JSON.stringify({
+                    ...data,
+                    token: useState.token
+                }))
+                setFavoritesCategory("");
+                setContainerTasks("");
+                setnewCategeryName("")
+                toast("Категория удалена!!!")
+            })
+            .catch(err => toast(`Категория не удалена!!!, ${err.message}`))           
+    }
+      
     const delCategory = (id) => {          
             let newUserCategories = user.categories.filter((elem) => 
             elem.id !== id);   
@@ -113,8 +131,7 @@ export const Context = (props) => {
  
     const value = {        
         user,
-        setUser, 
-        setCategoryState,       
+        setUser,        
         categoryName,
         setCategoryName,
         newCategeryName, 
@@ -134,8 +151,12 @@ export const Context = (props) => {
         setTasksAll,
         setContainerTasks,
         onSubmit, 
-        delCategory     
-        // editCategoryName
+        delCategory,
+        showAllTasks, 
+        setShowAllTasks,
+        showAllCategories, 
+        setShowAllCategories,
+        updateCategory 
     }       
 
     return <CustumContext.Provider value={value}>

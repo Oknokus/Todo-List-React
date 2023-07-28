@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CustumContext } from '../../../Config/Contex';
 
 import dataColors from "../../../Config/DataColors";
@@ -9,24 +9,22 @@ import ButtonSizes from '../../Ui/EditContainer/Button/Button';
 import styles from './AsideCreateCategory.module.css';
 
 
-const AsideCreateCategory = ({subMit, addCategory, allTasks}) => {
+const AsideCreateCategory = ({subMit, addCategory, selectCategories, selectTasks}) => { 
+   
     const [activeTask, setActiveTask]  = useState(false);
     const {        
         categoryName,
         setColor,
-        color,        
-        editCategoryName,
+        color, 
         delCategory,
         active,
-        setActive,
+        setActive,       
+        user,
+        updateCategory,
         newCategeryName, 
-        setnewCategeryName,
-        user, 
-        setUser,
-        setFavoritesCategory,
-        favoritesCategory
-    } = useContext(CustumContext);        
-    
+        setnewCategeryName  
+    } = useContext(CustumContext);   
+         
     return (
         <div className={styles.aside_containerCreate}>  
             <h1 key={user.id}>Привет {user.login}</h1> 
@@ -35,7 +33,7 @@ const AsideCreateCategory = ({subMit, addCategory, allTasks}) => {
                     className={styles.containerCreate_tasksAll}  
                     onClick={() => setActive(true)}>➕ Добавить категорию
                 </div> 
-                <ButtonSizes allTasks={allTasks} id={user.id}/>
+                <ButtonSizes selectTasks={selectTasks}/>
                 <Filter/>   
                    
                     <div style={{display: active ? "block" : "none"}}  className={styles.containerCreate_editor}>
@@ -73,10 +71,10 @@ const AsideCreateCategory = ({subMit, addCategory, allTasks}) => {
                                     <>    
                                         <li 
                                             className={styles.containerCreate_taskTitle} 
-                                            onClick={() => setFavoritesCategory(el)}                                          
+                                            onClick={() => selectCategories(el)}                                          
                                             key={el.id}>
 
-                                            <div onClick={() => setActiveTask(true)}>📝</div>                                                
+                                            <div onClick={() => updateCategory(el) & setActiveTask(true)}>📝</div>                                                
                                             <div className={styles.containerCreate_taskColor} style={{backgroundColor: el.color}}></div>
                                             
                                             <h5>{el.categoryName}</h5>                                            

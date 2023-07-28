@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react';
+import {useContext} from 'react';
 
 import { CustumContext } from '../../Config/Contex';
 import {v4 as uuidv4} from 'uuid';
@@ -7,17 +7,15 @@ import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 
-// import AsideMenu from "./AsideMenu";
 import AsideCreateCategory from "./AsideCreateCategory";
 import UserTasks from './UserTasks/UserTasks';
-import AsideOut from './AsideOut/AsideOut';
 import UserTasksAll from './UserTasksAll/UserTasksAll';
 
 
 import styles from "./AsideSection.module.css";
 
 
-const AsideSection = () => {     
+const AsideSection = () => { 
     const navigate = useNavigate();
     const {
         user,
@@ -30,20 +28,22 @@ const AsideSection = () => {
         taskName, 
         setTaskName,
         favoritesCategory,
-        tasksAll, 
-        setTasksAll               
+        setFavoritesCategory, 
+        showAllCategories,
+        showAllTasks, 
+        setShowAllTasks, 
+        setShowAllCategories              
         } = useContext(CustumContext);
      
-        const addCategory = () => {         
+        const addCategory = () => {        
             let newCategory = {
                     categoryName: categoryName,
                     id: uuidv4(),
                     color,
                     tasks: []            
-            };
-    
-            const localUserState = JSON.parse(localStorage.getItem("user")) ; 
-                axios.patch(`http://localhost:8080/users/${user.id}`, { 
+            };              
+              
+            axios.patch(`http://localhost:8080/users/${user.id}`, { 
                     categories: [
                         ...user.categories,
                         newCategory
@@ -61,12 +61,12 @@ const AsideSection = () => {
                     setCategoryName("");                  
                 }).catch(err => toast(`Категория не добавлена!!!, ${err.message}`))       
             };
-
-            const subMit = (e) => {                
+       
+        const subMit = (e) => {                
                 setCategoryName(e.target.value);
             };
 
-            const addTasks = () => {
+        const addTasks = () => {
                 let newTask = { 
                 taskName: taskName,     
                 id: uuidv4(),
@@ -95,7 +95,7 @@ const AsideSection = () => {
                 }).catch(err => toast(`Задача не добавлена!!!, ${err.message}`))              
             };
 
-            const delTask = (id) => { 
+        const delTask = (id) => { 
                 let newCategory = user.categories.map((elem) => {
                     if(elem.categoryName === favoritesCategory.categoryName) {                
                         return ({...elem, tasks: elem.tasks.filter(el => el.id !== id)})
@@ -124,25 +124,28 @@ const AsideSection = () => {
                     .catch(err => toast(`Задача не удалена!!!, ${err.message}`))
             };
 
-            const logOutUser = () => {
+        const logOutUser = () => {
                 localStorage.removeItem("user");
                 setUser([]);
                 navigate("/login")
             };
 
-            const allTasks = (id) => { 
-                let res = user.categories.filter(el => el.categoryName).map(el => el.tasks).map(ele => ele).map(item => item.map(elem => elem.taskName));                
-                    setTasksAll([...res]);
-                    localStorage.setItem("userTasksAll", JSON.stringify({...res}));  
+            const selectTasks = () => { 
+                setShowAllCategories(false);
+                setShowAllTasks(true)              
             } 
-            console.log(tasksAll)
-            
-           
+
+            const selectCategories = (category) => {              
+                setFavoritesCategory(category)
+                setShowAllCategories(true);
+                setShowAllTasks(false)              
+            }
+                                  
      return (
         <div className={styles.asideSection_container}>
-            <AsideCreateCategory subMit={subMit} addCategory={addCategory} setActive={setActive} active={active} allTasks={allTasks}/>
-            <UserTasks addTasks={addTasks} delTask={delTask} user={user} logOutUser={logOutUser} />  
-            <UserTasksAll delTask={delTask} tasksAll={tasksAll} setTasksAll={setTasksAll}/>          
+            <AsideCreateCategory subMit={subMit} addCategory={addCategory} setActive={setActive} active={active} selectCategories={selectCategories} selectTasks={selectTasks}/>
+            {showAllCategories && <UserTasks addTasks={addTasks} delTask={delTask} user={user} logOutUser={logOutUser} selectCategories={selectCategories}/>}
+            {showAllTasks && <UserTasksAll categories={user.categories} delTask={delTask} logOutUser={logOutUser}/> }         
         </div>        
     )
 };

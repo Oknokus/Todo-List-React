@@ -6,35 +6,25 @@
       "login": "Oknokus",
       "categories": [
         {
-          "categoryName": "1",
-          "id": "77c38a13-ee5b-424a-a994-ab3582a71639",
-          "color": "yellow",
-          "tasks": [
-            {
-              "taskName": "11",
-              "id": "efd25193-670e-4497-81a8-0e870aca8eff",
-              "isComplete": false
-            },
-            {
-              "taskName": "123",
-              "id": "1a258e75-6776-48d9-8770-270828d6b576",
-              "isComplete": false
-            },
-            {
-              "taskName": "1234",
-              "id": "c79ee590-3293-42cc-8be2-7205d2363265",
-              "isComplete": false
-            }
-          ]
+          "id": "0e281cda-5269-4f42-8768-2d44274730e0",
+          "color": "red",
+          "tasks": [],
+          "categoryName": "1"
         },
         {
-          "categoryName": "22",
-          "id": "44b8468f-b829-48d5-b4f2-bca8ab6b9a7b",
-          "color": "yellow",
+          "id": "f4223015-b2bd-4593-9837-d11e9bf4549f",
+          "color": "red",
+          "tasks": [],
+          "categoryName": "1"
+        },
+        {
+          "categoryName": "asdasd",
+          "id": "4ea4bfcf-7602-4035-ab1a-d9fd9a48c7f2",
+          "color": "green",
           "tasks": [
             {
-              "taskName": "asdasd",
-              "id": "df3d457b-454a-4480-b6de-0186813e0ea4",
+              "taskName": "333",
+              "id": "d8ea7f6e-72d8-453f-86bd-4d43934d2d80",
               "isComplete": false
             }
           ]

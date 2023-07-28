@@ -1,36 +1,38 @@
 import PropTypes from 'prop-types';
 
+import AsideOut from '../AsideOut/AsideOut';
+
 
 import styles from './UserTasksAll.module.css';
 
 
-const UserTasksAll = ({tasksAll, delTask}) => {    
-    
-    return (  
-        <>
-            {/* <ul className={styles.userTasksAll_container}>                                        
-                {
-                tasksAll.categoryName.map(elem => 
-                    <li 
-                        className={styles.container_taskItem}
-                        key={elem.id}>
-                        <div className={styles.container_taskItemTitle}>
-                            <h2>-{elem.categoryName}</h2>
-                            <input type="checkbox" 
-                            value={elem.isComplete}/>
-                            <span
-                                onClick={() => delTask(elem.id)}>
-                                ✖️
-                            </span>                                    
-                        </div>                                
-                    </li>
-                    ) 
-                }                                 
-            </ul>  */}
-        </>
+const UserTasksAll = ({categories, logOutUser}) => {
+
+    return (
+        <div className={styles.userTasksAll_container}>  
+            <h1 key={categories.id}>Все задачи:</h1>    
+                <ul>         
+                    {
+                        categories.map(category => {
+                            return category.tasks.map(task => {
+                                return <li 
+                                            className={styles.container_taskItem}
+                                            key={task.taskName}>
+                                            <div>
+                                                <h2 className={styles.container_taskItemTitle}>-{task.taskName}</h2>       
+                                            </div>                                
+                                        </li>
+                            })
+                        })
+                    }
+                </ul>
+                <AsideOut logOutUser={logOutUser}/>
+        </div>
     )
 }
 
 export default UserTasksAll;
+
+
 
 
