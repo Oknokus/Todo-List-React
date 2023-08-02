@@ -20,7 +20,7 @@ const UserTasks = ({addTasks, user, delTask, logOutUser}) => {
         setContainerTasks       
     } = useContext(CustumContext);
           
-    const task = user.categories.find((elem) => {
+    const task = user.categories?.find((elem) => {
         if(elem.categoryName === favoritesCategory.categoryName) {  
             setContainerTasks(elem)
     }   else return 

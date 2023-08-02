@@ -22,16 +22,17 @@ const AsideMenu = () => {
                 {   
                     (user.length === 0) ? (<Navigate to="/regiter"/>) :
                         user.categories.map(elem => (               
-                                <li 
+                            <li 
                                     key={elem.id}                            
                                     onClick={() => {setStatus(elem); setAll(false)}}>                  
-                        <li className={styles.container_menuLi}>                       
-                            <span className={styles.container_menuLiColor}></span>
-                            <span className={styles.container_containerTasks}></span>
-                            <span 
-                                className={styles.container_menuLiDel}>✖️</span>
-                        </li>
-                }     
+                                <div className={styles.container_menuLi}>                       
+                                    <span className={styles.container_menuLiColor}></span>
+                                    <span className={styles.container_containerTasks}></span>
+                                    <span 
+                                        className={styles.container_menuLiDel}>✖️</span>
+                                </div>
+                            </li>
+                ))}    
             </ul>
         </>
     )

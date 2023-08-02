@@ -9,7 +9,7 @@ import ButtonSizes from '../../Ui/EditContainer/Button/Button';
 import styles from './AsideCreateCategory.module.css';
 
 
-const AsideCreateCategory = ({subMit, addCategory, selectCategories, selectTasks}) => { 
+const AsideCreateCategory = ({subMit, addCategory, selectCategories, selectTasks, findCategoryColor}) => { 
    
     const [activeTask, setActiveTask]  = useState(false);
     const {        
@@ -22,9 +22,14 @@ const AsideCreateCategory = ({subMit, addCategory, selectCategories, selectTasks
         user,
         updateCategory,
         newCategeryName, 
-        setnewCategeryName  
-    } = useContext(CustumContext);   
-         
+        setnewCategeryName,
+        colorFilter, 
+        setColorFilter,
+        categoryNameChange, 
+        setCategoryNameChange 
+    } = useContext(CustumContext);  
+  
+            
     return (
         <div className={styles.aside_containerCreate}>  
             <h1 key={user.id}>Привет {user.login}</h1> 
@@ -33,6 +38,17 @@ const AsideCreateCategory = ({subMit, addCategory, selectCategories, selectTasks
                     className={styles.containerCreate_tasksAll}  
                     onClick={() => setActive(true)}>➕ Добавить категорию
                 </div> 
+
+                <h3 styles={{marginTop:"40px"}} className={styles.containerCreate_ColorsFilter}>Категории по цвету:</h3>
+                <div className={styles.containerCreate_editorColorsAside}>
+                
+                                {dataColors.map((elem, index) => 
+                                    <div 
+                                        className={styles.containerCreate_editorColorsActive}
+                                        onClick={() => setColorFilter(elem) & findCategoryColor(elem)}
+                                        key={index} style={{background: elem, border: colorFilter === elem ? "4px solid black" : "none"}}>
+                                    </div>)}
+                </div>
                 <ButtonSizes selectTasks={selectTasks}/>
                 <Filter/>   
                    
@@ -49,17 +65,17 @@ const AsideCreateCategory = ({subMit, addCategory, selectCategories, selectTasks
                             </span>
 
                             <div className={styles.containerCreate_editorColors}>
-                                {dataColors.map(elem => 
+                                {dataColors.map((elem, index) => 
                                     <div 
                                         className={styles.containerCreate_editorColorsActive} 
                                         onClick={() => setColor(elem)}                                     
-                                        key={elem} style={{background: elem, border: color === elem ? "4px solid black" : "none"}}>
+                                        key={index} style={{background: elem, border: color === elem ? "4px solid black" : "none"}}>
                                     </div>)}
                             </div>
 
                             <button 
                                 className={styles.containerCreate_editorBtn}
-                                onClick={() => addCategory() && setActive(false)} >
+                                onClick={() => addCategory() & setActive(false)} >
                                 Добавить
                             </button>
                     </div>
@@ -67,14 +83,14 @@ const AsideCreateCategory = ({subMit, addCategory, selectCategories, selectTasks
                     <div className={styles.containerCreate_tasks}>
                         <ul style={{marginTop: "50px"}}>                                    
                             {
-                                user.categories.map(el => 
+                                user.categories?.map(el => 
                                     <>    
                                         <li 
                                             className={styles.containerCreate_taskTitle} 
                                             onClick={() => selectCategories(el)}                                          
                                             key={el.id}>
 
-                                            <div onClick={() => updateCategory(el) & setActiveTask(true)}>📝</div>                                                
+                                            <div onClick={() => setActiveTask(true) & setCategoryNameChange(el)}>📝</div>                                                
                                             <div className={styles.containerCreate_taskColor} style={{backgroundColor: el.color}}></div>
                                             
                                             <h5>{el.categoryName}</h5>                                            
@@ -103,7 +119,7 @@ const AsideCreateCategory = ({subMit, addCategory, selectCategories, selectTasks
 
                                                     <button 
                                                         className={styles.containerCreate_editorBtn}
-                                                        onClick={() => setActiveTask(false)}>
+                                                        onClick={() => updateCategory() & setActiveTask(false)}>
                                                         Применить
                                                     </button>
                                                 </div>

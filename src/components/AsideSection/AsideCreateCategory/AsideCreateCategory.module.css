@@ -28,6 +28,9 @@
 .containerCreate_tasksAll{
     padding-top: 20px;
 }
+.containerCreate_ColorsFilter{
+    padding-top: 40px;  
+}
 .containerCreate_editorInput{
     width: 100%;
     border-radius: 10px;
@@ -36,6 +39,14 @@
 }
 .containerCreate_editorColors{
     display: flex;
+    justify-content: center;
+    column-gap: var(--size-verySmall); 
+    padding: var(--size-small);
+    z-index: 10;
+}
+.containerCreate_editorColorsAside{   
+    display: flex;
+    align-items: center;
     justify-content: center;
     column-gap: var(--size-verySmall); 
     padding: var(--size-small);

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import { Navigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { Navigate, json } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
 import { CustumContext } from '../../Config/Contex';
 
 import AsideSection from '../../components/AsideSection/AsideSection';
@@ -15,10 +15,16 @@ const HomePage = () => {
         user,
         setUser       
         } = useContext(CustumContext);    
+      
 
-    if(user.length === 0) {
-        return <Navigate to="/register"/>
-    };
+        useEffect(() => {  
+            if(localStorage.getItem("user") !== null) {
+              setUser(JSON.parse(localStorage.getItem("user")))         
+            } else {
+                return <Navigate to="/register"/>
+            }
+        },[]) 
+    
     return (
         <>  
             <AsideSection/>

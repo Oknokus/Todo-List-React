@@ -4,17 +4,20 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 
 import dataColors from "./DataColors";
+import dataColorsFilter from "./DataColorsFilter";
 
 import axios from "axios";
 
 export const CustumContext = createContext();
 
 export const Context = (props) => {   
-    const [newCategeryName, setnewCategeryName] = useState("");  
+    const [newCategeryName, setnewCategeryName] = useState("");
+    const [categoryNameChange, setCategoryNameChange] = useState("");    
     const [user, setUser] = useState([]); 
     const [categoryName, setCategoryName] = useState(); 
     const [taskName, setTaskName] = useState(""); 
     const [color, setColor] = useState(dataColors[0]); 
+    const [colorFilter, setColorFilter] = useState(dataColorsFilter[0]); 
     const [active, setActive] = useState(false);   
     const [activeTaskMenu, setActiveTaskMenu] = useState(false);     
     const [favoritesCategory, setFavoritesCategory] = useState({}); 
@@ -22,8 +25,8 @@ export const Context = (props) => {
     const [tasksAll, setTasksAll] = useState([]);
     const [showAllCategories, setShowAllCategories] = useState(true); 
     const [showAllTasks, setShowAllTasks] = useState(false); 
-    
-
+    const [showAllFindCategoryColor, setShowAllFindCategoryColor] = useState(false); 
+     
     const navigate = useNavigate();
     const location = useLocation();
   
@@ -75,11 +78,10 @@ export const Context = (props) => {
             location.pathname === "/register" ?  registerUser(dataFetch) : loginUser(data)
         }        
     }; 
-    
-    
-    const updateCategory = (el) => {
-        let newUserCategories = user.categories.map((elem) => {
-                if (elem.id !== el.id) {
+        
+    const updateCategory = () => {          
+        let newUserCategories = user.categories?.map((elem) => {
+                if (elem.id !== categoryNameChange.id) {
                     return elem;
                 }
                 return {
@@ -88,7 +90,7 @@ export const Context = (props) => {
                 }
             }
         );        
-
+          
         axios.patch(`http://localhost:8080/users/${user.id}`, {categories: newUserCategories})
             .then(({data}) => {             
                 setUser({
@@ -101,7 +103,7 @@ export const Context = (props) => {
                 }))
                 setFavoritesCategory("");
                 setContainerTasks("");
-                setnewCategeryName("")
+                setnewCategeryName("");
                 toast("Категория удалена!!!")
             })
             .catch(err => toast(`Категория не удалена!!!, ${err.message}`))           
@@ -127,8 +129,7 @@ export const Context = (props) => {
                 })
                 .catch(err => toast(`Категория не удалена!!!, ${err.message}`))
     }
-
- 
+    
     const value = {        
         user,
         setUser,        
@@ -138,6 +139,8 @@ export const Context = (props) => {
         setnewCategeryName,  
         color, 
         setColor,
+        colorFilter, 
+        setColorFilter,
         active, 
         setActive,
         activeTaskMenu, 
@@ -156,7 +159,11 @@ export const Context = (props) => {
         setShowAllTasks,
         showAllCategories, 
         setShowAllCategories,
-        updateCategory 
+        updateCategory,
+        showAllFindCategoryColor, 
+        setShowAllFindCategoryColor,
+        categoryNameChange, 
+        setCategoryNameChange 
     }       
 
     return <CustumContext.Provider value={value}>

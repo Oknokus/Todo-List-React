@@ -1,0 +1,19 @@
+.user_categoryFilter{
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    padding: var(--size-small);
+} 
+.usercategory_container{
+    padding: var(--size-small);    
+}
+.container_categoryFilter{
+    text-align: left;
+    padding-top: 60px;
+}
+.categoryFilter_li{   
+    list-style-type: decimal;   
+} 
+
+
+
