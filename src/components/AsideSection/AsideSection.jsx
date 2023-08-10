@@ -70,7 +70,8 @@ const AsideSection = () => {
                     setCategoryName(e.target.value);
                 };
 
-            const addTasks = () => {
+            const addTasks = (data) => {
+                console.log(data)
                     let newTask = { 
                     taskName: taskName,     
                     id: uuidv4(),
@@ -96,7 +97,7 @@ const AsideSection = () => {
                         }))
                         setTaskName("");
                         toast("Задача добавлена!!!")
-                    }).catch(err => toast(`Задача не добавлена!!!, ${err.message}`))              
+                    }).catch(err => toast(`Задача не добавлена!!!, ${err.message}`))                    
                 };
 
             const delTask = (id) => { 
@@ -158,7 +159,7 @@ const AsideSection = () => {
 
      return (
         <div className={styles.asideSection_container}>
-            <AsideCreateCategory subMit={subMit} addCategory={addCategory} setActive={setActive} active={active} selectCategories={selectCategories} selectTasks={selectTasks} findCategoryColor={findCategoryColor}/>
+            <AsideCreateCategory subMit={subMit} addCategory={addCategory} setActive={setActive} active={active} selectCategories={selectCategories} selectTasks={selectTasks} findCategoryColor={findCategoryColor} categoryName={categoryName}/>
             {showAllCategories && <UserTasks addTasks={addTasks} delTask={delTask} user={user} logOutUser={logOutUser} selectCategories={selectCategories}/>}
             {showAllTasks && <UserTasksAll categories={user.categories} delTask={delTask} logOutUser={logOutUser}/> } 
             {showAllFindCategoryColor && <UserCategoryFilter filterCategoryName={filterCategoryName} setFilterCategoryName={setFilterCategoryName} logOutUser={logOutUser}/> }          

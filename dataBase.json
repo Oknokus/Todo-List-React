@@ -2,16 +2,9 @@
   "users": [
     {
       "email": "oknokus@gmail.com",
-      "password": "$2a$10$zVygIRFpZLmqwKPLG/ClUuS3O0l71jiPNbHaoeCtyN8Lo5DPMWHuW",
+      "password": "$2a$10$LZbkNE7Xb7hRco6/dXbRJeo9HgLJLBDAWp0UE1ghWRmtMr2yrT2am",
       "login": "Oknokus",
-      "categories": [
-        {
-          "categoryName": "2",
-          "id": "1056e8fd-b519-4020-9bf7-a6d83b228d66",
-          "color": "red",
-          "tasks": []
-        }
-      ],
+      "categories": [],
       "id": 1
     }
   ]

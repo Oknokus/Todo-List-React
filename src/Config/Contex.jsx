@@ -163,7 +163,7 @@ export const Context = (props) => {
         showAllFindCategoryColor, 
         setShowAllFindCategoryColor,
         categoryNameChange, 
-        setCategoryNameChange 
+        setCategoryNameChange     
     }       
 
     return <CustumContext.Provider value={value}>

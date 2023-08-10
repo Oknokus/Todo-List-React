@@ -1,4 +1,7 @@
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
+import { useContext } from 'react';
+
+import { CustumContext } from '../../../Config/Contex';
 
 import AsideOut from '../AsideOut/AsideOut';
 
@@ -6,8 +9,7 @@ import AsideOut from '../AsideOut/AsideOut';
 import styles from './UserTasksAll.module.css';
 
 
-const UserTasksAll = ({categories, logOutUser}) => {
-
+const UserTasksAll = ({categories, logOutUser}) => {   
     return (
         <div className={styles.userTasksAll_container}>  
             <h1 key={categories.id}>Все задачи:</h1>    

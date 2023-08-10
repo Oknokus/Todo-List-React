@@ -1,16 +1,25 @@
 import PropTypes from 'prop-types';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
+import {useForm} from 'react-hook-form';
+
 import { CustumContext } from '../../../Config/Contex';
 
 import dataColors from "../../../Config/DataColors";
-import Filter from '../../Ui/EditContainer/Filter/Filter';
 import ButtonSizes from '../../Ui/EditContainer/Button/Button';
 
 import styles from './AsideCreateCategory.module.css';
 
 
 const AsideCreateCategory = ({subMit, addCategory, selectCategories, selectTasks, findCategoryColor}) => { 
-   
+    const {
+        register,
+        handleSubmit,
+            formState: {
+                errors
+        }, watch
+    } = useForm({mode: "onblur"});
+
+
     const [activeTask, setActiveTask]  = useState(false);
     const {        
         categoryName,
@@ -28,8 +37,11 @@ const AsideCreateCategory = ({subMit, addCategory, selectCategories, selectTasks
         categoryNameChange, 
         setCategoryNameChange 
     } = useContext(CustumContext);  
-  
-            
+    
+    let trueCategoruName = user.categories?.map(category => {
+        return category.categoryName}
+    )
+
     return (
         <div className={styles.aside_containerCreate}>  
             <h1 key={user.id}>Привет {user.login}</h1> 
@@ -49,15 +61,35 @@ const AsideCreateCategory = ({subMit, addCategory, selectCategories, selectTasks
                                         key={index} style={{background: elem, border: colorFilter === elem ? "4px solid black" : "none"}}>
                                     </div>)}
                 </div>
-                <ButtonSizes selectTasks={selectTasks}/>
-                <Filter/>   
+                <ButtonSizes selectTasks={selectTasks}/>                
                    
-                    <div style={{display: active ? "block" : "none"}}  className={styles.containerCreate_editor}>
-                            <label>                             
-                                <input 
+                    <div style={{display: active ? "block" : "none"}}  className={styles.containerCreate_editor}>                           
+                            <form onSubmit={handleSubmit(addCategory)} noValidate>
+                            <label>
+
+                            <span>{errors.errCategory && errors.errCategory.message}</span> 
+
+                                <input {...register("errCategory", { 
+                                        required : {
+                                            message: "Заполните поле",
+                                            value: true
+                                        },          
+                                        validate: value => 
+                                            trueCategoruName.find(name => name === value) && "Такая категория уже есть."
+                                        ,                               
+                                        maxLength : {
+                                            message: "Максимальное число символов 10",
+                                            value: 10 
+                                        }, 
+                                        minLength : {
+                                            message: "Минимальное число символов 3",
+                                            value: 3
+                                        }
+                                    })} 
                                     value={categoryName} onChange={(e) => subMit(e)}
                                     className={styles.containerCreate_editorInput} type="text" placeholder='Название категории' />
                             </label>
+                           
                             <span 
                                 className= {styles.containerCreate_editorClose}
                                 onClick={() => setActive(false)}>
@@ -75,9 +107,10 @@ const AsideCreateCategory = ({subMit, addCategory, selectCategories, selectTasks
 
                             <button 
                                 className={styles.containerCreate_editorBtn}
-                                onClick={() => addCategory() & setActive(false)} >
+                                type="submit">
                                 Добавить
                             </button>
+                            </form>
                     </div>
                     
                     <div className={styles.containerCreate_tasks}>
