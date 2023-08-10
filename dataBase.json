@@ -4,7 +4,14 @@
       "email": "oknokus@gmail.com",
       "password": "$2a$10$LZbkNE7Xb7hRco6/dXbRJeo9HgLJLBDAWp0UE1ghWRmtMr2yrT2am",
       "login": "Oknokus",
-      "categories": [],
+      "categories": [
+        {
+          "categoryName": "123",
+          "id": "aa821313-814f-4a25-9474-fab6f9d9cba3",
+          "color": "red",
+          "tasks": []
+        }
+      ],
       "id": 1
     }
   ]

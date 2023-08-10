@@ -1,9 +1,12 @@
-import {useContext, useEffect, useState} from 'react';
+import {useContext, useState} from 'react';
 
 import { CustumContext } from '../../Config/Contex';
 import {v4 as uuidv4} from 'uuid';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import {ToastContainer} from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 import axios from 'axios';
 
@@ -17,6 +20,7 @@ import styles from "./AsideSection.module.css";
 
 
 const AsideSection = () => { 
+  
     const navigate = useNavigate();
     const[filterCategoryName, setFilterCategoryName] = useState();
     const {
@@ -36,7 +40,9 @@ const AsideSection = () => {
         setShowAllTasks, 
         setShowAllCategories,
         showAllFindCategoryColor, 
-        setShowAllFindCategoryColor,             
+        setShowAllFindCategoryColor, 
+        setActiveTaskMenu,
+        complete            
         } = useContext(CustumContext);
      
             const addCategory = () => {        
@@ -62,16 +68,16 @@ const AsideSection = () => {
                         token: user.token
                     }));           
                     setActive(false);
-                    setCategoryName("");                  
-                }).catch(err => toast(`Категория не добавлена!!!, ${err.message}`))       
+                    setCategoryName(""); 
+                    toast("Категория добавлена!!!")
+                 }).catch(err => toast(`Категория не добавлена!!!, ${err.message}`))        
                 };
        
             const subMit = (e) => {                
                     setCategoryName(e.target.value);
                 };
 
-            const addTasks = (data) => {
-                console.log(data)
+            const addTasks = (data) => {                        
                     let newTask = { 
                     taskName: taskName,     
                     id: uuidv4(),
@@ -96,6 +102,7 @@ const AsideSection = () => {
                             ...data                           
                         }))
                         setTaskName("");
+                        setActiveTaskMenu(false)
                         toast("Задача добавлена!!!")
                     }).catch(err => toast(`Задача не добавлена!!!, ${err.message}`))                    
                 };
@@ -140,14 +147,14 @@ const AsideSection = () => {
                 setShowAllCategories(false);
                 setShowAllTasks(true)
                 setShowAllFindCategoryColor(false);                
-            } 
+                };
 
             const selectCategories = (category) => {              
                 setFavoritesCategory(category)
                 setShowAllCategories(true);
                 setShowAllTasks(false) 
                 setShowAllFindCategoryColor(false);                 
-            }
+                };
             
             const findCategoryColor = (elem) => {
                 const categoryColor = user.categories.filter(el => el.color === elem); 
@@ -155,15 +162,46 @@ const AsideSection = () => {
                 setShowAllFindCategoryColor(true);  
                 setShowAllCategories(false);
                 setShowAllTasks(false)
+                };
+
+            const changeChechBox = (item) => {
+                let newCategory = user.categories.map((elem) => {
+                    if(elem.categoryName === favoritesCategory.categoryName) {                
+                        return ({...elem, tasks: [...elem.tasks, elem.tasks.filter(it => it.id === item.id).map(el => {
+                            return ({...el, isComplete: complete})
+                        })]})                          
+                        }
+                    else {
+                        return elem
+                    }
+                });     
+
+                console.log(newCategory)
+                                                       
+                // axios.patch(`http://localhost:8080/users/${user.id}`, { 
+                //     categories: [
+                //         ...newCategory
+                //     ]  
+                //     })
+                //     .then(({data}) => {
+                //         setUser({
+                //             ...data
+                //         })
+                     
+                //         toast("Задача удалена!!!")
+                //     })
+                //     .catch(err => toast(`Задача не удалена!!!, ${err.message}`))
             }
 
      return (
         <div className={styles.asideSection_container}>
             <AsideCreateCategory subMit={subMit} addCategory={addCategory} setActive={setActive} active={active} selectCategories={selectCategories} selectTasks={selectTasks} findCategoryColor={findCategoryColor} categoryName={categoryName}/>
-            {showAllCategories && <UserTasks addTasks={addTasks} delTask={delTask} user={user} logOutUser={logOutUser} selectCategories={selectCategories}/>}
+            {showAllCategories && <UserTasks addTasks={addTasks} delTask={delTask} user={user} logOutUser={logOutUser} selectCategories={selectCategories} changeChechBox={changeChechBox}/>}
             {showAllTasks && <UserTasksAll categories={user.categories} delTask={delTask} logOutUser={logOutUser}/> } 
             {showAllFindCategoryColor && <UserCategoryFilter filterCategoryName={filterCategoryName} setFilterCategoryName={setFilterCategoryName} logOutUser={logOutUser}/> }          
-        </div>        
+            <ToastContainer style={{marginTop: "50px"}}/> 
+        </div>
+             
     )
 };
 

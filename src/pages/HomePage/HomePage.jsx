@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import { Navigate, json } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
+
 import { CustumContext } from '../../Config/Contex';
 
 import AsideSection from '../../components/AsideSection/AsideSection';
 
 
 import styles from './HomePage.module.css';
-
 
 
 const HomePage = () => {
@@ -27,7 +27,7 @@ const HomePage = () => {
     
     return (
         <>  
-            <AsideSection/>
+            <AsideSection/>           
         </>
     )
 }

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import { useContext, useState } from 'react';
+import { useContext} from 'react';
+import {useForm} from 'react-hook-form';
 
 import { CustumContext } from '../../../Config/Contex';
 
@@ -9,7 +10,15 @@ import AsideOut from '../AsideOut/AsideOut';
 import styles from './UserTasks.module.css';
 
 
-const UserTasks = ({addTasks, user, delTask, logOutUser}) => {  
+const UserTasks = ({addTasks, user, delTask, logOutUser, changeChechBox}) => {  
+    const {
+        register,
+        handleSubmit,
+            formState: {
+                errors
+        }, watch
+    } = useForm({mode: "onblur"});
+
     const {              
         favoritesCategory,
         activeTaskMenu, 
@@ -17,7 +26,8 @@ const UserTasks = ({addTasks, user, delTask, logOutUser}) => {
         taskName, 
         setTaskName,
         containerTasks, 
-        setContainerTasks       
+        setContainerTasks,
+        setComplete     
     } = useContext(CustumContext);
           
     const task = user.categories?.find((elem) => {
@@ -25,6 +35,11 @@ const UserTasks = ({addTasks, user, delTask, logOutUser}) => {
             setContainerTasks(elem)
     }   else return 
     });
+
+    const trueTaskName = user.categories?.find(category => {
+        return category.categoryName === favoritesCategory.categoryName  
+    });
+  
    
     return ( 
             <div className={styles.usertasks_container}>  
@@ -52,7 +67,8 @@ const UserTasks = ({addTasks, user, delTask, logOutUser}) => {
                                 key={elem.id}>
                                 <div className={styles.container_taskItemTitle}>
                                     <h2>-{elem.taskName}</h2>
-                                    <input type="checkbox" 
+                                    <input type="checkbox"
+                                    onClick={() => changeChechBox(elem) & setComplete(prev => !prev)} 
                                     value={elem.isComplete}/>
                                     <span
                                         onClick={() => delTask(elem.id)}>
@@ -64,11 +80,30 @@ const UserTasks = ({addTasks, user, delTask, logOutUser}) => {
                     }                                 
                 </ul>  
                     <div style={{display: activeTaskMenu ? "block" : "none"}}  className={styles.container_editor}>
-                            <label>                             
-                                <input
-                                className={styles.container_editorInput} type="text" placeholder='Введите название задачи' 
-                                value={taskName}
-                                onChange={(e) => setTaskName(e.target.value)}/>
+                            <form onSubmit={handleSubmit(addTasks)} noValidate>
+                            <label>    
+                                <span>{errors.errTask && errors.errTask.message}</span> 
+                                                         
+                                <input {...register("errTask", { 
+                                        required : {
+                                            message: "Заполните поле",
+                                            value: true
+                                        },          
+                                        validate: value => 
+                                        trueTaskName.tasks.find(name => name.taskName === value) && "Такая задача уже есть."
+                                        ,                               
+                                        maxLength : {
+                                            message: "Максимальное число символов 10",
+                                            value: 10 
+                                        }, 
+                                        minLength : {
+                                            message: "Минимальное число символов 3",
+                                            value: 3
+                                        }
+                                    })}
+                                    className={styles.container_editorInput} type="text" placeholder='Введите название задачи' 
+                                    value={taskName}
+                                    onChange={(e) => setTaskName(e.target.value)}/>
                             </label>
                             <span 
                                 className= {styles.container_editorClose}
@@ -78,9 +113,10 @@ const UserTasks = ({addTasks, user, delTask, logOutUser}) => {
 
                             <button 
                                 className={styles.container_editorBtn}
-                                onClick={() => addTasks() & setActiveTaskMenu(false)}>
+                                type="submit">
                                 Добавить задачу
                             </button>
+                            </form>
                     </div>                   
                     <AsideOut logOutUser={logOutUser}/>
             </div>
