@@ -26,7 +26,7 @@ export const Context = (props) => {
     const [showAllCategories, setShowAllCategories] = useState(true); 
     const [showAllTasks, setShowAllTasks] = useState(false); 
     const [showAllFindCategoryColor, setShowAllFindCategoryColor] = useState(false);
-    const[complete, setComplete]  = useState(false); 
+    const [complete, setComplete]  = useState(false); 
      
     const navigate = useNavigate();
     const location = useLocation();
@@ -92,7 +92,9 @@ export const Context = (props) => {
             }
         );        
           
-        axios.patch(`http://localhost:8080/users/${user.id}`, {categories: newUserCategories})
+        axios.patch(`http://localhost:8080/users/${user.id}`, {
+            categories: newUserCategories
+        })
             .then(({data}) => {             
                 setUser({
                     ...data,
@@ -130,6 +132,7 @@ export const Context = (props) => {
                     })
             .catch(err => toast(`Категория не удалена!!!, ${err.message}`))
     }
+     
     
     const value = {        
         user,

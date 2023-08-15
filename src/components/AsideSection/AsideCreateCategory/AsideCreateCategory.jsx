@@ -38,7 +38,7 @@ const AsideCreateCategory = ({subMit, addCategory, selectCategories, selectTasks
         setCategoryNameChange 
     } = useContext(CustumContext);  
     
-    let trueCategoruName = user.categories?.map(category => {
+    let trueCategoruName = user?.categories?.map(category => {
         return category.categoryName}
     )
 

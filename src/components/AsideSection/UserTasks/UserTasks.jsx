@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useContext} from 'react';
+import { useContext, useEffect} from 'react';
 import {useForm} from 'react-hook-form';
 
 import { CustumContext } from '../../../Config/Contex';
@@ -27,7 +27,8 @@ const UserTasks = ({addTasks, user, delTask, logOutUser, changeChechBox}) => {
         setTaskName,
         containerTasks, 
         setContainerTasks,
-        setComplete     
+        setComplete,
+        complete     
     } = useContext(CustumContext);
           
     const task = user.categories?.find((elem) => {
@@ -40,7 +41,6 @@ const UserTasks = ({addTasks, user, delTask, logOutUser, changeChechBox}) => {
         return category.categoryName === favoritesCategory.categoryName  
     });
   
-   
     return ( 
             <div className={styles.usertasks_container}>  
             <h1 key={favoritesCategory.id}>Выбрана категория: {favoritesCategory.categoryName}</h1>             
@@ -67,9 +67,9 @@ const UserTasks = ({addTasks, user, delTask, logOutUser, changeChechBox}) => {
                                 key={elem.id}>
                                 <div className={styles.container_taskItemTitle}>
                                     <h2>-{elem.taskName}</h2>
-                                    <input type="checkbox"
-                                    onClick={() => changeChechBox(elem) & setComplete(prev => !prev)} 
-                                    value={elem.isComplete}/>
+                                    <input type="checkbox"  
+                                    checked={elem.isComplete ? true : false}
+                                    onClick={() => changeChechBox(elem) & setComplete(prev => !prev)}/>
                                     <span
                                         onClick={() => delTask(elem.id)}>
                                         ✖️

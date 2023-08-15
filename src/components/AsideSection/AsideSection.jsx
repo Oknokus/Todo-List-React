@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react';
+import {useContext, useState, useEffect} from 'react';
 
 import { CustumContext } from '../../Config/Contex';
 import {v4 as uuidv4} from 'uuid';
@@ -42,9 +42,11 @@ const AsideSection = () => {
         showAllFindCategoryColor, 
         setShowAllFindCategoryColor, 
         setActiveTaskMenu,
-        complete            
+        complete,
+        containerTasks            
         } = useContext(CustumContext);
-     
+
+             
             const addCategory = () => {        
             let newCategory = {
                     categoryName: categoryName,
@@ -163,35 +165,40 @@ const AsideSection = () => {
                 setShowAllCategories(false);
                 setShowAllTasks(false)
                 };
-
+                     
             const changeChechBox = (item) => {
-                let newCategory = user.categories.map((elem) => {
+                let checkedTask = {...item, isComplete: complete};
+
+                let newCategory = user.categories?.map((elem) => {
                     if(elem.categoryName === favoritesCategory.categoryName) {                
-                        return ({...elem, tasks: [...elem.tasks, elem.tasks.filter(it => it.id === item.id).map(el => {
-                            return ({...el, isComplete: complete})
-                        })]})                          
-                        }
-                    else {
+                        return ({...elem, tasks: [checkedTask, ...elem.tasks.filter(it => 
+                            it.taskName !== item.taskName
+                        )]})
+                    } else {
                         return elem
                     }
-                });     
+                });       
+                                                              
+                axios.patch(`http://localhost:8080/users/${user.id}`, { 
+                    categories: [
+                        ...newCategory
+                    ]                 
+                    })
+                    .then(({data}) => {                       
+                        setUser({
+                            ...data
+                        })
+                        if(complete) {                     
+                            toast("Задача выполнена!!!")
+                        }  else {
+                            toast("Задача не выполнена!!!")
 
-                console.log(newCategory)
-                                                       
-                // axios.patch(`http://localhost:8080/users/${user.id}`, { 
-                //     categories: [
-                //         ...newCategory
-                //     ]  
-                //     })
-                //     .then(({data}) => {
-                //         setUser({
-                //             ...data
-                //         })
-                     
-                //         toast("Задача удалена!!!")
-                //     })
-                //     .catch(err => toast(`Задача не удалена!!!, ${err.message}`))
-            }
+                        }
+                    })
+                    .catch(err => toast(`Задача не выполнена, ${err.message}`))
+            }   
+            
+            
 
      return (
         <div className={styles.asideSection_container}>
